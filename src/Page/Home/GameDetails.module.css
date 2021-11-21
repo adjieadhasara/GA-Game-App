@@ -1,0 +1,57 @@
+.container{
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.wrap{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%) !important ;
+}
+.gameName{
+    color: white;
+    font-size: 4.5em;
+}
+
+.backgroundDetails{
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.3;
+    /* position: "absolute" */
+    
+}
+.iconsGame{
+    font-size: 30px;
+    color: rgb(6, 247, 195);
+    
+}
+.ratingTop{
+    width: 50px;
+    display: flex;
+    margin-top: 5px;
+    font-size: 30px;
+    color: orange;
+    padding: 10px;
+    background-color: rgb(32, 32, 30);
+    border:1px solid rgb(238, 72, 177);
+}
+.ratingCount{
+    color:rgb(6, 247, 195) ;
+    
+    font-size: 50px;
+}
+.date{
+    font-size: 16px;
+    color: rgb(6, 247, 195);
+    /* padding-bottom: 9px; */
+}
+.descWrap{
+    padding: 20px;
+}
+.descText{
+    color: rgb(249, 240, 255);
+    font-size: 15px;
+
+}

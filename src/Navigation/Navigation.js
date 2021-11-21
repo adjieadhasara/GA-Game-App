@@ -15,7 +15,7 @@ function Navigation() {
                 placeholder="Search Game ..."
               />
             </div>
-            <p className={styles.navList}>Home</p>
+            {/* <p className={styles.navList}>Home</p> */}
           </div>
         </nav>
       </div>

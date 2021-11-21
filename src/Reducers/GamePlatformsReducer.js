@@ -1,22 +1,19 @@
 import * as types from "../ActionTypes/GameListActionTypes";
 
 const initalStore = {
-  game: [],
-  pages: null,
-  // detail: [],
+  platforms: [],
   loading: false,
   error: "",
 };
 
-export default function gameListReducer(store = initalStore, action) {
+export default function gamePlatformsReducer(store = initalStore, action) {
   switch (action.type) {
-    case types.GET_GAMELIST_REQUEST:
+    case types.GET_GAMEPLATFORMS_REQUEST:
       return { ...store, loading: true };
-    case types.GET_GAMELIST_SUCCESS:
-      return { ...store, loading: false, game: action.game };
-    case types.GET_GAMELIST_FAIL:
+    case types.GET_GAMEPLATFORMS_SUCCESS:
+      return { ...store, loading: false, platforms: action.platforms };
+    case types.GET_GAMEPLATFORMS_FAIL:
       return { ...store, loading: false, error: action.error };
-
     default:
       return store;
   }
