@@ -4,7 +4,8 @@ import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import gameListReducer from "../Reducers/GameListReducer";
 import gameDetailsReducer from "../Reducers/GameDetailsReducer";
-import gamePlatformsReducer from "../Reducers/GamePlatformsReducer";
+
+import gamesGenreListReducer from "../Reducers/GamePlatformsReducer";
 
 const enhancer = compose(
   applyMiddleware(thunkMiddleware),
@@ -14,8 +15,9 @@ const enhancer = compose(
 const rootReducer = combineReducers({
   // put all of your reducers in here
   game: gameListReducer,
+  genresFilters: gameListReducer,
   detail: gameDetailsReducer,
-  platforms: gamePlatformsReducer,
+  genresList: gamesGenreListReducer,
 });
 
 const reduxStore = createStore(rootReducer, enhancer);

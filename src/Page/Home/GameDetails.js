@@ -13,6 +13,10 @@ import { RiWindowsFill } from "react-icons/ri";
 import { RiAppleFill } from "react-icons/ri";
 import moment from "moment";
 import { GiStaryu } from "react-icons/gi";
+import { FaRegMeh } from "react-icons/fa";
+import { GiDiamondsSmile } from "react-icons/gi";
+import { FaSkullCrossbones } from "react-icons/fa";
+import { FaRegThumbsUp } from "react-icons/fa";
 
 function GameDetails(props) {
   let { id } = useParams();
@@ -81,7 +85,7 @@ function GameDetails(props) {
           <div className={styles.descWrap}>
             <h4 className={styles.titleText}>Platforms</h4>
             <p className={styles.descTextPlatforms}>
-              {platformss.map((e) => `[ ${e.platform.name} ],  `)}
+              {platformss.map((e) => `[ ${e.platform.name} ]  `)}
             </p>
           </div>
           {/* <div className={styles.descWrap}>

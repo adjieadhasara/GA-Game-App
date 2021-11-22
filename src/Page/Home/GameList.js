@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { gamesListAction } from "../../Action/GameListAction";
+import { gamesListAction, gamesFilter } from "../../Action/GameListAction";
 import Navigation from "../../Navigation/Navigation";
-import { gamesPlatforms } from "../../Action/GamePlatformsaction";
+import { gamesGenreList } from "../../Action/GamePlatformsaction";
 import { SpinnerInfinity } from "spinners-react";
 import moment from "moment";
 // MUI material ( CARD IMPORT ) =====================================================================//
@@ -43,44 +43,52 @@ function GamesList(props) {
   //  S T A T E =========================================================================================//
   const classes = useStyles();
   const [pages, setPages] = React.useState(1);
-  const [genre, setGenre] = React.useState("");
-
+  const [filterPages, setFilterPages] = React.useState(1);
+  const [genresGameFilters, setGenresGameFilters] = React.useState("");
+  console.log(props, "dapet cuy");
   let gameData = props.game.game;
-  let genreData = props.platforms.platforms;
-  // console.log(genreData, "dapet cuy");
+  let genreData = props.genresList.genresList;
 
   React.useEffect(() => {
     props.gamesListAction(pages);
   }, [pages]);
 
   React.useEffect(() => {
-    props.gamesPlatforms(genre);
-  }, [genre]);
+    props.gamesGenreList();
+  }, []);
+
+  React.useEffect(() => {
+    props.gamesFilter();
+    setFilterPages(1);
+  }, [genresGameFilters, filterPages]);
 
   //  F U N C T I O N   ==========================================================================//
 
   const handleChange = (event, value) => {
-    // console.log(value, "wow");
+    console.log(value, "wow");
     setPages(value);
   };
-  const handleChangeGenre = (e) => {
-    console.log(e.target.value, "uwow");
-    setGenre(e.target.value);
+  const handleClickGenre = (value) => {
+    console.log(value, "uwow");
+
+    setGenresGameFilters(value);
   };
 
   return (
     <div className={styles.container}>
       <Navigation />
 
-      <div className={styles.genreList}>
-        {genreData.map((genres) => {
-          return (
-            <button className={styles.genreBtn} onClick={handleChangeGenre}>
-              {genres.slug}
-            </button>
-          );
-        })}
-      </div>
+      {genreData.map((genres) => {
+        return (
+          <div
+            key={genres.id}
+            className={styles.genreList}
+            onClick={() => handleClickGenre(genres.slug)}
+          >
+            <button className={styles.genreBtn}>{genres.slug}</button>
+          </div>
+        );
+      })}
 
       <div className={styles.listWrapper}>
         <div className={styles.fillterWrap}>
@@ -114,8 +122,9 @@ function GamesList(props) {
                     <RiAppleFill />
                   </div>
                   <Link
+                    key={games.id}
                     style={{ textDecoration: "none" }}
-                    to={`/game-details/${games.id}/`}
+                    to={`/game-details/${games.slug}/`}
                   >
                     <CardMedia
                       component="img"
@@ -175,7 +184,8 @@ function GamesList(props) {
 const MapStateToProps = (store) => {
   return {
     game: store.game,
-    platforms: store.platforms,
+    genresFilters: store.genresFilters,
+    genresList: store.genresList,
   };
 };
 
@@ -183,7 +193,8 @@ const MapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       gamesListAction,
-      gamesPlatforms,
+      gamesFilter,
+      gamesGenreList,
     },
     dispatch
   );
