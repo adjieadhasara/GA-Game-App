@@ -7,6 +7,24 @@
     text-align: center;
     padding-top: 30vh;
 }
+.genreList{
+    display: flexbox;
+    border: 1px solid white;
+    padding:20px 10px 20px 80px;
+    margin-left: 30px;
+    margin-right: 60px;
+}
+.genreBtn{
+    border: none;
+    background: none;
+    color:#ff9c2a;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 20px ;
+}
+.genreBtn:hover{
+    color: rgb(6, 247, 195);
+}
 
 .fillterWrap{
     display: flex;

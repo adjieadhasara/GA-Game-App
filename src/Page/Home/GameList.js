@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { gamesListAction } from "../../Action/GameListAction";
 import Navigation from "../../Navigation/Navigation";
+import { gamesPlatforms } from "../../Action/GamePlatformsaction";
 import { SpinnerInfinity } from "spinners-react";
 import moment from "moment";
 // MUI material ( CARD IMPORT ) =====================================================================//
@@ -42,25 +43,45 @@ function GamesList(props) {
   //  S T A T E =========================================================================================//
   const classes = useStyles();
   const [pages, setPages] = React.useState(1);
+  const [genre, setGenre] = React.useState("");
 
   let gameData = props.game.game;
+  let genreData = props.platforms.platforms;
+  // console.log(genreData, "dapet cuy");
 
   React.useEffect(() => {
     props.gamesListAction(pages);
   }, [pages]);
 
-  // console.log(gameData, "dapet cuy");
+  React.useEffect(() => {
+    props.gamesPlatforms(genre);
+  }, [genre]);
 
   //  F U N C T I O N   ==========================================================================//
 
   const handleChange = (event, value) => {
-    console.log(value, "wow");
+    // console.log(value, "wow");
     setPages(value);
+  };
+  const handleChangeGenre = (e) => {
+    console.log(e.target.value, "uwow");
+    setGenre(e.target.value);
   };
 
   return (
     <div className={styles.container}>
       <Navigation />
+
+      <div className={styles.genreList}>
+        {genreData.map((genres) => {
+          return (
+            <button className={styles.genreBtn} onClick={handleChangeGenre}>
+              {genres.slug}
+            </button>
+          );
+        })}
+      </div>
+
       <div className={styles.listWrapper}>
         <div className={styles.fillterWrap}>
           {props.game.loading ? (
@@ -82,7 +103,8 @@ function GamesList(props) {
                     maxWidth: 250,
                     bgcolor: "black",
                     borderRadius: "20px",
-                    boxShadow: "0px 0px 15px #ff9c2a",
+                    // border: "1px solid rgb(104, 104, 104)",
+                    boxShadow: "0px 0px 15px rgb(104, 104, 104)",
                   }}
                 >
                   <div className={styles.iconsGame}>
@@ -91,7 +113,10 @@ function GamesList(props) {
                     <RiWindowsFill />
                     <RiAppleFill />
                   </div>
-                  <Link to={`/game-details/${games.id}/`}>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`/game-details/${games.id}/`}
+                  >
                     <CardMedia
                       component="img"
                       height="194"
@@ -100,17 +125,27 @@ function GamesList(props) {
                       alt="Paella dish"
                     />
                     <CardContent>
-                      <Typography key={games.id} color="white">
+                      <Typography
+                        key={games.id}
+                        color="white"
+                        sx={{ textShadow: "0px 0px 15px rgb(6, 247, 195)" }}
+                      >
                         {games.name}
                       </Typography>
                     </CardContent>
                   </Link>
                   <CardContent>
-                    <Typography color="white" sx={{ fontSize: "12px" }}>
+                    <Typography
+                      color="rgb(6, 247, 195)"
+                      sx={{
+                        fontSize: "13px",
+                        mt: "-18px",
+                      }}
+                    >
                       Release date :{" "}
                       {moment(games.released).format("MMMM, D Y")}
                     </Typography>
-                    <Typography color="white" variant="body3">
+                    <Typography color="white" variant="body2">
                       {/* Genres :{games.genres} */}
                     </Typography>
                   </CardContent>
@@ -140,6 +175,7 @@ function GamesList(props) {
 const MapStateToProps = (store) => {
   return {
     game: store.game,
+    platforms: store.platforms,
   };
 };
 
@@ -147,6 +183,7 @@ const MapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       gamesListAction,
+      gamesPlatforms,
     },
     dispatch
   );

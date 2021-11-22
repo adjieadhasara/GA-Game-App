@@ -17,9 +17,12 @@ import { GiStaryu } from "react-icons/gi";
 function GameDetails(props) {
   let { id } = useParams();
   let detailsGame = props.detail.detail;
-  let getRatings = detailsGame.ratings;
+  let getGenres = props.detail.genre;
+  let platformss = props.detail.platformName;
+  let developers = props.detail.developer;
   // let result =getRatings.map((rate))
-  console.log(detailsGame, "details");
+  console.log(props, "details");
+  console.log(developers, "details");
 
   React.useEffect(() => {
     props.gamesDetails(id);
@@ -58,12 +61,35 @@ function GameDetails(props) {
               <GiStaryu />
             </div>
           </div>
+          <div className={styles.descWrapAbout}>
+            <h4 className={styles.titleTextAbout}>About</h4> :
+            <p className={styles.descText}>{detailsGame.description_raw}</p>
+          </div>
+
           <div className={styles.descWrap}>
+            <h4 className={styles.titleText}>Genres</h4>
             <p className={styles.descText}>
-              ABOUT : &nbsp; &nbsp; {detailsGame.description_raw}
+              {getGenres.map((e) => `${e.name}, `)}
             </p>
           </div>
-          <div className={styles.descWrap}></div>
+          <div className={styles.descWrap}>
+            <h4 className={styles.titleText}>Developers</h4>
+            <p className={styles.descText}>
+              {developers.map((e) => `${e.name}  `)}
+            </p>
+          </div>
+          <div className={styles.descWrap}>
+            <h4 className={styles.titleText}>Platforms</h4>
+            <p className={styles.descTextPlatforms}>
+              {platformss.map((e) => `[ ${e.platform.name} ],  `)}
+            </p>
+          </div>
+          {/* <div className={styles.descWrap}>
+            <p className={styles.descText}>
+              {gamesDetails.map((e) => `${e.developers}, `)}
+            </p>
+          </div> */}
+
           {/* {getRatings.map((rate) => {
           return (
             <div className={styles.iconsGame}>
@@ -82,6 +108,9 @@ function GameDetails(props) {
 const MapStateToProps = (store) => {
   return {
     detail: store.detail,
+    genre: store.genre,
+    platformName: store.platformName,
+    developer: store.developer,
     // platforms: store.platforms,
   };
 };

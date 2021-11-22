@@ -6,9 +6,12 @@
 
 .wrap{
     position: absolute;
-    top: 40%;
+    background-color:rgba(0, 0, 0, 0.63) ;
+    border: 1px solid rgb(6, 247, 195);;
+    padding: 80px;
+    top: 20%;
     left: 50%;
-    transform: translate(-50%, -40%) !important ;
+    transform: translate(-50%, -20%) !important ;
 }
 .gameName{
     color: white;
@@ -50,8 +53,27 @@
 .descWrap{
     padding: 20px;
 }
+.descWrapAbout{
+    color:  rgb(6, 247, 195);
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
 .descText{
-    color: rgb(249, 240, 255);
-    font-size: 15px;
+    color: rgb(170, 170, 170);
+    font-size: 17px;
 
+}
+.descTextPlatforms{
+    color: rgb(170, 170, 170);
+    padding: 10px;
+    /* margin-left: 30px; */
+    margin-right: 50%;
+    border-style: inset;
+}
+.titleText{
+    color:  rgb(6, 247, 195);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(6, 247, 195);
 }

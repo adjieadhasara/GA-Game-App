@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ReduxProvider from "../src/Redux/Index";
 import axios from "axios";
+require("dotenv").config();
 
 axios.defaults.baseURL = "https://api.rawg.io/api/";
 

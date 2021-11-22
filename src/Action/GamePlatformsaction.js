@@ -2,17 +2,17 @@ import * as types from "../ActionTypes/GameListActionTypes";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export function gamesPlatforms(id, slug, pages, platforms, genre) {
+export function gamesPlatforms(id, slug, page, platforms, genre) {
   return (dispatch) => {
     dispatch({ type: types.GET_GAMEPLATFORMS_REQUEST });
 
     axios({
       method: "GET",
-      url: `/platforms?key=8fbbb416b9ce4c4e80d04e11185e921e`,
+      url: `/genres?key=${process.env.REACT_APP_GAMES_API_KEY}`,
     })
       .then((response) => {
         let gamesPlatform = response.data.results;
-        console.log(response.data, "platform njing");
+        // console.log(response.data.results, "platform njing");
         dispatch({
           type: types.GET_GAMEPLATFORMS_SUCCESS,
           platforms: gamesPlatform,

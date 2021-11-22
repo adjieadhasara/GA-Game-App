@@ -2,13 +2,13 @@ import * as types from "../ActionTypes/GameListActionTypes";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export function gamesListAction(pages, id) {
+export function gamesListAction(pages, genre) {
   return (dispatch) => {
     dispatch({ type: types.GET_GAMELIST_REQUEST });
 
     axios({
       method: "GET",
-      url: `/games?key=8fbbb416b9ce4c4e80d04e11185e921e&page=${pages}`,
+      url: `/games?key=${process.env.REACT_APP_GAMES_API_KEY}&page=${pages}&genre=${genre}`,
     })
       .then((response) => {
         let result = response.data.results;
