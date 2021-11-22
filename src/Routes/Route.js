@@ -6,7 +6,7 @@ import GameDetails from "../Page/Home/GameDetails";
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/home" component={Home} />
       <Route path="/games-list" component={GameList} />
       <Route path="/game-details/:id" component={GameDetails} />
     </Switch>
