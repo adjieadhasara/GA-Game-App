@@ -77,18 +77,19 @@ function GamesList(props) {
   return (
     <div className={styles.container}>
       <Navigation />
-
-      {genreData.map((genres) => {
-        return (
-          <div
-            key={genres.id}
-            className={styles.genreList}
-            onClick={() => handleClickGenre(genres.slug)}
-          >
-            <button className={styles.genreBtn}>{genres.slug}</button>
-          </div>
-        );
-      })}
+      <div className={styles.genreList}>
+        {genreData.map((genres) => {
+          return (
+            <button
+              className={styles.genreBtn}
+              key={genres.id}
+              onClick={() => handleClickGenre(genres.slug)}
+            >
+              {genres.slug}
+            </button>
+          );
+        })}
+      </div>
 
       <div className={styles.listWrapper}>
         <div className={styles.fillterWrap}>
