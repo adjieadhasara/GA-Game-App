@@ -16,7 +16,7 @@ function Home() {
               Get Your Highlight GAME !!!
             </p>
             <Link to="./games-list">
-              <button className={styles.btnStart}>Go Start .....</button>
+              <button className={styles.btnStart}>Go Start ......</button>
             </Link>
           </div>
         </div>
