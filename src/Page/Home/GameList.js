@@ -48,6 +48,7 @@ function GamesList(props) {
   console.log(props, "dapet cuy");
   let gameData = props.game.game;
   let genreData = props.genresList.genresList;
+  console.log(props.genresGameFilters.genresGameFilters, "ininin");
 
   React.useEffect(() => {
     props.gamesListAction(pages);
@@ -58,8 +59,7 @@ function GamesList(props) {
   }, []);
 
   React.useEffect(() => {
-    props.gamesFilter();
-    setFilterPages(1);
+    props.gamesFilter(genresGameFilters, filterPages);
   }, [genresGameFilters, filterPages]);
 
   //  F U N C T I O N   ==========================================================================//
@@ -184,7 +184,7 @@ function GamesList(props) {
 const MapStateToProps = (store) => {
   return {
     game: store.game,
-    genresFilters: store.genresFilters,
+    genresGameFilters: store.genresGameFilters,
     genresList: store.genresList,
   };
 };

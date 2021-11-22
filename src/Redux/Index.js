@@ -15,7 +15,7 @@ const enhancer = compose(
 const rootReducer = combineReducers({
   // put all of your reducers in here
   game: gameListReducer,
-  genresFilters: gameListReducer,
+  genresGameFilters: gameListReducer,
   detail: gameDetailsReducer,
   genresList: gamesGenreListReducer,
 });

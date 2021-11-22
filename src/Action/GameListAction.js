@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export function gamesListAction(pages) {
+  console.log(pages, "llll");
   return (dispatch) => {
     dispatch({ type: types.GET_GAMELIST_REQUEST });
 
@@ -30,17 +31,19 @@ export function gamesListAction(pages) {
   };
 }
 
-export function gamesFilter(filterPages, genresGameFilters) {
+export function gamesFilter(genresGameFilters, filterPages) {
+  console.log(genresGameFilters, "madfakah man");
+  console.log(filterPages, "madfakah man............");
   return (dispatch) => {
     dispatch({ type: types.GET_GAMESFILTER_REQUEST });
 
     axios({
       method: "GET",
-      url: `/games?key=${process.env.REACT_APP_GAMES_API_KEY}&page=${filterPages}&genres=${genresGameFilters}`,
+      url: `/games?&genres=${genresGameFilters}&key=${process.env.REACT_APP_GAMES_API_KEY}&page=${filterPages}`,
     })
       .then((response) => {
-        let resultFilter = response.data;
-        console.log(response.data.data, "filter");
+        let resultFilter = response.data.results;
+        console.log(response.data.results, "filter");
         dispatch({
           type: types.GET_GAMESFILTER_SUCCESS,
           genresGameFilters: resultFilter,

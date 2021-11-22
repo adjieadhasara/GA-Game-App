@@ -2,8 +2,8 @@ import * as types from "../ActionTypes/GameListActionTypes";
 
 const initalStore = {
   game: [],
-  pages: null,
   genresGameFilters: [],
+  pages: null,
   // detail: [],
   loading: false,
   error: "",
@@ -23,7 +23,7 @@ export default function gameListReducer(store = initalStore, action) {
       return {
         ...store,
         loading: false,
-        genresGameFilterss: action.genresGameFilters,
+        genresGameFilters: action.genresGameFilters,
       };
     case types.GET_GAMESFILTER_FAIL:
       return { ...store, loading: false, error: action.error };
