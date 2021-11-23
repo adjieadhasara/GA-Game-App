@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Navigation.module.css";
+import logo from "../asset/logo.png";
 
 function Navigation() {
   return (
@@ -8,13 +9,14 @@ function Navigation() {
         <nav className={styles.navContainer}>
           <div className={styles.navWrapper}>
             <h1 className={styles.navLogo}>RGA</h1>
-            <div className={styles.navInputWrap}>
+            <img src={logo} className={styles.navLogoIcon} />
+            {/* <div className={styles.navInputWrap}>
               <input
                 className={styles.navInputSearch}
                 type="text"
                 placeholder="Search Game ..."
               />
-            </div>
+            </div> */}
             {/* <p className={styles.navList}>Home</p> */}
           </div>
         </nav>

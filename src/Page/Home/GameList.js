@@ -3,11 +3,15 @@ import styles from "../Home/GameList.module.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useParams } from "react-router";
+import { ReactVideo } from "reactjs-media";
+
 import { Link } from "react-router-dom";
 import { gamesListAction, gamesFilter } from "../../Action/GameListAction";
 import Navigation from "../../Navigation/Navigation";
 import { gamesGenreList } from "../../Action/GamePlatformsaction";
 import { SpinnerInfinity } from "spinners-react";
+import { SpinnerDiamond } from "spinners-react";
+
 import moment from "moment";
 // MUI material ( CARD IMPORT ) =====================================================================//
 
@@ -21,6 +25,7 @@ import Stack from "@mui/material/Stack";
 import { RiXboxLine } from "react-icons/ri";
 import { RiPlaystationLine } from "react-icons/ri";
 import { RiWindowsFill } from "react-icons/ri";
+import { BiSliderAlt } from "react-icons/bi";
 import { RiAppleFill } from "react-icons/ri";
 
 const useStyles = makeStyles(() => ({
@@ -45,10 +50,32 @@ function GamesList(props) {
   const [pages, setPages] = React.useState(1);
   const [filterPages, setFilterPages] = React.useState(1);
   const [genresGameFilters, setGenresGameFilters] = React.useState("");
+  const colors = [
+    "2px solid #df10f1",
+    "2px solid #06d1b6",
+    "2px solid #acd106",
+    "2px solid #FF8042",
+    "2px solid #8006d1",
+    "2px solid #d14606",
+    "2px solid #FFBB28",
+    "2px solid #acd106",
+    "2px solid #0088FE",
+    "2px solid #00C49F",
+    "2px solid #FFBB28",
+    "2px solid #FF8042",
+    "2px solid #0088FE",
+    "2px solid #00C49F",
+    "2px solid #FFBB28",
+    "2px solid #FF8042",
+    "2px solid #0088FE",
+    "2px solid #00C49F",
+    "2px solid #FFBB28",
+    "2px solid #FF8042",
+  ];
   console.log(props, "dapet cuy");
   let gameData = props.game.game;
   let genreData = props.genresList.genresList;
-  console.log(props.genresGameFilters.genresGameFilters, "ininin");
+  let fillterData = props.genresGameFilters.genresGameFilters;
 
   React.useEffect(() => {
     props.gamesListAction(pages);
@@ -65,11 +92,13 @@ function GamesList(props) {
   //  F U N C T I O N   ==========================================================================//
 
   const handleChange = (event, value) => {
-    console.log(value, "wow");
     setPages(value);
   };
+  const handleFiltersPagination = (event, value) => {
+    setFilterPages(value);
+  };
   const handleClickGenre = (value) => {
-    console.log(value, "uwow");
+    // console.log(value, "uwow");
 
     setGenresGameFilters(value);
   };
@@ -77,106 +106,199 @@ function GamesList(props) {
   return (
     <div className={styles.container}>
       <Navigation />
-      <div className={styles.genreList}>
-        {genreData.map((genres) => {
-          return (
-            <button
-              className={styles.genreBtn}
-              key={genres.id}
-              onClick={() => handleClickGenre(genres.slug)}
-            >
-              {genres.slug}
-            </button>
-          );
-        })}
-      </div>
+      <div className={styles.wrappers}>
+        <div className={styles.genreList}>
+          {genreData.map((genres, i) => {
+            return (
+              <button
+                className={styles.genreBtn}
+                style={{ border: colors[i] }}
+                key={i}
+                onClick={() => handleClickGenre(genres.slug)}
+              >
+                {genres.slug}
+              </button>
+            );
+          })}
+        </div>
 
-      <div className={styles.listWrapper}>
-        <div className={styles.fillterWrap}>
-          {props.game.loading ? (
-            <div className={styles.loading}>
-              <SpinnerInfinity
-                size={200}
-                thickness={161}
-                speed={117}
-                color="rgba(57, 172, 123, 1)"
-                secondaryColor="rgba(156, 57, 172, 1)"
-              />
-            </div>
-          ) : (
-            gameData.map((games) => {
-              return (
-                <Card
-                  key={games.id}
-                  sx={{
-                    maxWidth: 250,
-                    bgcolor: "black",
-                    borderRadius: "20px",
-                    // border: "1px solid rgb(104, 104, 104)",
-                    boxShadow: "0px 0px 15px rgb(104, 104, 104)",
-                  }}
-                >
-                  <div className={styles.iconsGame}>
-                    <RiXboxLine />
-                    <RiPlaystationLine />
-                    <RiWindowsFill />
-                    <RiAppleFill />
-                  </div>
-                  <Link
-                    key={games.id}
-                    style={{ textDecoration: "none" }}
-                    to={`/game-details/${games.slug}/`}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="194"
+        {genresGameFilters === "" ? (
+          <div className={styles.listWrapper}>
+            <div className={styles.fillterWrap}>
+              {props.game.loading ? (
+                <div className={styles.loading}>
+                  <SpinnerInfinity
+                    size={200}
+                    thickness={161}
+                    speed={117}
+                    color="rgba(57, 172, 123, 1)"
+                    secondaryColor="rgba(156, 57, 172, 1)"
+                  />
+                </div>
+              ) : (
+                gameData.map((games) => {
+                  return (
+                    <Card
                       key={games.id}
-                      image={games.background_image}
-                      alt="Paella dish"
-                    />
-                    <CardContent>
-                      <Typography
-                        key={games.id}
-                        color="white"
-                        sx={{ textShadow: "0px 0px 15px rgb(6, 247, 195)" }}
-                      >
-                        {games.name}
-                      </Typography>
-                    </CardContent>
-                  </Link>
-                  <CardContent>
-                    <Typography
-                      color="rgb(6, 247, 195)"
                       sx={{
-                        fontSize: "13px",
-                        mt: "-18px",
+                        maxWidth: 250,
+                        bgcolor: "black",
+                        borderRadius: "20px",
+                        // border: "1px solid rgb(104, 104, 104)",
+                        boxShadow: "0px 0px 15px rgb(104, 104, 104)",
                       }}
                     >
-                      Release date :{" "}
-                      {moment(games.released).format("MMMM, D Y")}
-                    </Typography>
-                    <Typography color="white" variant="body2">
-                      {/* Genres :{games.genres} */}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              );
-            })
-          )}
-          {props.game.loading ? (
-            ""
-          ) : (
-            <Stack spacing={2}>
-              <Pagination
-                count={100}
-                page={pages}
-                classes={{ ul: classes.ul }}
-                size="large"
-                onChange={handleChange}
-              />
-            </Stack>
-          )}
-        </div>
+                      <div className={styles.iconsGame}>
+                        <RiXboxLine />
+                        <RiPlaystationLine />
+                        <RiWindowsFill />
+                        <RiAppleFill />
+                      </div>
+                      <Link
+                        key={games.id}
+                        style={{ textDecoration: "none" }}
+                        to={`/game-details/${games.slug}/`}
+                      >
+                        <CardMedia
+                          component="img"
+                          height="194"
+                          key={games.id}
+                          image={games.background_image}
+                          alt="Paella dish"
+                        />
+                        <CardContent>
+                          <Typography
+                            key={games.id}
+                            color="white"
+                            sx={{ textShadow: "0px 0px 15px rgb(6, 247, 195)" }}
+                          >
+                            {games.name}
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                      <CardContent>
+                        <Typography
+                          color="rgb(6, 247, 195)"
+                          sx={{
+                            fontSize: "13px",
+                            mt: "-18px",
+                          }}
+                        >
+                          Release date :{" "}
+                          {moment(games.released).format("MMMM, D Y")}
+                        </Typography>
+                        <Typography color="white" variant="body2">
+                          {/* Genres :{games.genres} */}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  );
+                })
+              )}
+              {props.game.loading ? (
+                ""
+              ) : (
+                <Stack spacing={2}>
+                  <Pagination
+                    count={100}
+                    page={pages}
+                    classes={{ ul: classes.ul }}
+                    size="large"
+                    onChange={handleChange}
+                  />
+                </Stack>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className={styles.listWrapFilter}>
+            <div className={styles.fillterListWrap}>
+              {props.game.loading ? (
+                <div className={styles.loadingFilters}>
+                  <SpinnerDiamond
+                    size={90}
+                    thickness={161}
+                    speed={100}
+                    color="rgba(172, 57, 154, 1)"
+                    secondaryColor="rgba(57, 172, 64, 1)"
+                  />
+                </div>
+              ) : (
+                fillterData.map((data) => {
+                  return (
+                    <Card
+                      key={data.id}
+                      sx={{
+                        maxWidth: 250,
+                        bgcolor: "black",
+                        borderRadius: "20px",
+                        // border: "1px solid rgb(104, 104, 104)",
+                        boxShadow: "0px 0px 15px rgb(104, 104, 104)",
+                      }}
+                    >
+                      <div className={styles.iconsGameFilter}>
+                        <RiXboxLine />
+                        <RiPlaystationLine />
+                        <RiWindowsFill />
+                        <RiAppleFill />
+                      </div>
+                      <Link
+                        key={data.id}
+                        style={{ textDecoration: "none" }}
+                        to={`/game-details/${data.slug}/`}
+                      >
+                        <CardMedia
+                          component="img"
+                          height="194"
+                          key={data.id}
+                          image={data.background_image}
+                          alt="Paella dish"
+                        />
+                        <CardContent>
+                          <Typography
+                            key={data.id}
+                            color="white"
+                            sx={{ textShadow: "0px 0px 15px rgb(6, 247, 195)" }}
+                          >
+                            {data.name}
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                      <CardContent>
+                        <Typography
+                          color="rgb(6, 247, 195)"
+                          sx={{
+                            fontSize: "13px",
+                            mt: "-18px",
+                          }}
+                        >
+                          Release date :{" "}
+                          {moment(data.released).format("MMMM, D Y")}
+                        </Typography>
+                        <Typography color="white" variant="body2">
+                          {/* Genres :{games.genres} */}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  );
+                })
+              )}
+              {props.game.loading ? (
+                ""
+              ) : (
+                <Stack spacing={2}>
+                  <Pagination
+                    count={50}
+                    page={filterPages}
+                    classes={{ ul: classes.ul }}
+                    size="large"
+                    onChange={handleFiltersPagination}
+                  />
+                </Stack>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
