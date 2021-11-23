@@ -32,8 +32,6 @@ export function gamesListAction(pages) {
 }
 
 export function gamesFilter(genresGameFilters, filterPages) {
-  console.log(genresGameFilters, "madfakah man");
-  console.log(filterPages, "madfakah man............");
   return (dispatch) => {
     dispatch({ type: types.GET_GAMESFILTER_REQUEST });
 
@@ -43,17 +41,16 @@ export function gamesFilter(genresGameFilters, filterPages) {
     })
       .then((response) => {
         let resultFilter = response.data.results;
-        console.log(response.data.results, "filter");
         dispatch({
           type: types.GET_GAMESFILTER_SUCCESS,
           genresGameFilters: resultFilter,
         });
-        // if (result && result.length) {
-        //   return Swal.fire({
-        //     icon: "success",
-        //     title: "Loading Page Success....",
-        //   });
-        // }
+        if (resultFilter && resultFilter.length) {
+          return Swal.fire({
+            icon: "success",
+            title: "Filter Page Success....",
+          });
+        }
       })
       .catch((err) => {
         dispatch({ type: types.GET_GAMESFILTER_FAIL, error: err });

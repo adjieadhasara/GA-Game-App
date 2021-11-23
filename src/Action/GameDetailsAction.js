@@ -12,11 +12,10 @@ export function gamesDetails(id) {
     })
       .then((response) => {
         let gameDet = response.data;
-        // console.log(gameDet);
         let genres = response.data.genres;
         let platformsData = response.data.platforms;
         let developers = response.data.developers;
-        // console.log(response.data.genres, "anjeng");
+
         dispatch({
           type: types.GET_GAMEDETAILS_SUCCESS,
           detail: gameDet,
@@ -24,20 +23,11 @@ export function gamesDetails(id) {
           genre: genres,
           platformName: platformsData,
         });
-        // dispatch({
-        //   type: types.GET_GAMEGENRES_SUCCESS,
-        //   genre: genres,
-        // });
-        // dispatch({
-        //   type: types.GET_GAMEPLATFORMSNAME_SUCCESS,
-        //   platformName: platformsData,
-        // });
-
         if (gameDet && !gameDet.length) {
-          //   return Swal.fire({
-          //     icon: "success",
-          //     title: "Loading Page Success....",
-          //   });
+          return Swal.fire({
+            icon: "success",
+            title: "Loading Page Success....",
+          });
         }
       })
       .catch((err) => {

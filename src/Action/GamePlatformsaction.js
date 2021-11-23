@@ -18,12 +18,12 @@ export function gamesGenreList() {
           genresList: gamesGenresData,
         });
 
-        // if (gameDet && !gameDet.length) {
-        //   return Swal.fire({
-        //     icon: "success",
-        //     title: "Loading Page Success....",
-        //   });
-        // }
+        if (gamesGenresData && !gamesGenresData.length) {
+          return Swal.fire({
+            icon: "success",
+            title: "Loading Page Success....",
+          });
+        }
       })
       .catch((err) => {
         dispatch({ type: types.GET_GAMESGENRELIST_FAIL, error: err });

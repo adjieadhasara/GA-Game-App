@@ -215,12 +215,12 @@ function GamesList(props) {
             <div className={styles.fillterListWrap}>
               {props.game.loading ? (
                 <div className={styles.loadingFilters}>
-                  <SpinnerDiamond
-                    size={90}
+                  <SpinnerInfinity
+                    size={200}
                     thickness={161}
-                    speed={100}
-                    color="rgba(172, 57, 154, 1)"
-                    secondaryColor="rgba(57, 172, 64, 1)"
+                    speed={117}
+                    color="rgba(57, 172, 123, 1)"
+                    secondaryColor="rgba(156, 57, 172, 1)"
                   />
                 </div>
               ) : (
